@@ -13,6 +13,7 @@
 		176278CE1BD29A4A00747057 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 176278CC1BD29A4A00747057 /* Main.storyboard */; };
 		176278D01BD29A4A00747057 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 176278CF1BD29A4A00747057 /* Assets.xcassets */; };
 		176278D31BD29A4A00747057 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 176278D11BD29A4A00747057 /* LaunchScreen.storyboard */; };
+		176278DC1BD2BB5E00747057 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 176278DB1BD2BB5E00747057 /* Photo.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		176278CF1BD29A4A00747057 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		176278D21BD29A4A00747057 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		176278D41BD29A4A00747057 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		176278DA1BD2BB5E00747057 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		176278DB1BD2BB5E00747057 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,14 +61,11 @@
 		176278C21BD29A4A00747057 /* FavoritePhotos */ = {
 			isa = PBXGroup;
 			children = (
-				176278C61BD29A4A00747057 /* AppDelegate.h */,
-				176278C71BD29A4A00747057 /* AppDelegate.m */,
+				176278CC1BD29A4A00747057 /* Main.storyboard */,
 				176278C91BD29A4A00747057 /* ViewController.h */,
 				176278CA1BD29A4A00747057 /* ViewController.m */,
-				176278CC1BD29A4A00747057 /* Main.storyboard */,
-				176278CF1BD29A4A00747057 /* Assets.xcassets */,
-				176278D11BD29A4A00747057 /* LaunchScreen.storyboard */,
-				176278D41BD29A4A00747057 /* Info.plist */,
+				176278DA1BD2BB5E00747057 /* Photo.h */,
+				176278DB1BD2BB5E00747057 /* Photo.m */,
 				176278C31BD29A4A00747057 /* Supporting Files */,
 			);
 			path = FavoritePhotos;
@@ -74,6 +74,11 @@
 		176278C31BD29A4A00747057 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				176278C61BD29A4A00747057 /* AppDelegate.h */,
+				176278C71BD29A4A00747057 /* AppDelegate.m */,
+				176278CF1BD29A4A00747057 /* Assets.xcassets */,
+				176278D11BD29A4A00747057 /* LaunchScreen.storyboard */,
+				176278D41BD29A4A00747057 /* Info.plist */,
 				176278C41BD29A4A00747057 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -150,6 +155,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				176278DC1BD2BB5E00747057 /* Photo.m in Sources */,
 				176278CB1BD29A4A00747057 /* ViewController.m in Sources */,
 				176278C81BD29A4A00747057 /* AppDelegate.m in Sources */,
 				176278C51BD29A4A00747057 /* main.m in Sources */,

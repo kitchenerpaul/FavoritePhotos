@@ -61,6 +61,8 @@
 
 @end
 
+_____checkinggitHub
+
 //for (NSDictionary *temporaryDictionary in self.arrayOfPhotoDictionaries) {
 //    Photo *photo = [[Photo alloc]initWithContentsOfDictionary:temporaryDictionary];
 //

@@ -26,18 +26,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    [self loadJSONData];
-
-
-}
+    }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSLog(@"Worked");
 
     NSString *urlString = [NSString stringWithFormat:@"https://api.instagram.com/v1/tags/%@/media/recent?client_id=51fd729b24e9432fb32af5cbf7399474", self.searchTextField.text];
     NSURL *url = [NSURL URLWithString:urlString];
-
-    NSData *imageData = [NSData dataWithData:UIImageJPEGRepresentation ([UIImage imageWithData:[NSData dataWithContentsOfURL:url]], 1.0f)];
 
     [[[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
 
@@ -47,12 +41,19 @@
         self.arrayOfPhotoDictionaries = [NSMutableArray new];
         self.arrayOfPhotoDictionaries = [self.allPhotosDictionary objectForKey:@"data"];
 
+        NSLog(@"%@", [[[self.arrayOfPhotoDictionaries valueForKey:@"images"] valueForKey:@"low_resolution"] valueForKey:@"url"]);
+
         self.arrayOfPhotos = [NSMutableArray new];
 
-        for (NSDictionary *temporaryDictionary in self.arrayOfPhotoDictionaries) {
-            Photo *photo = [[Photo alloc]initWithContentsOfDictionary:temporaryDictionary];
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            self.imageView.image = [UIImage imageWithData:data];
+
+        });
     }] resume];
+
+
+
 
     self.searchTextField.text = @"";
 
@@ -61,19 +62,21 @@
 
 @end
 
-_____checkinggitHub
 
-//for (NSDictionary *temporaryDictionary in self.arrayOfPhotoDictionaries) {
-//    Photo *photo = [[Photo alloc]initWithContentsOfDictionary:temporaryDictionary];
+
+//    NSData *imageData = [NSData dataWithData:UIImageJPEGRepresentation ([UIImage imageWithData:[NSData dataWithContentsOfURL:url]], 1.0f)];
 //
-//    if (self.arrayOfPhotos.count < 10) {
+//    [[[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
 //
-//        for (int i = 0; i < 10; i++) {
-//            [self.arrayOfPhotos addObject:photo];
-//            self.imageView.image = [UIImage imageWithData:imageData];
+//        self.allPhotosDictionary = [NSDictionary new];
+//        self.allPhotosDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+//
+//        self.arrayOfPhotoDictionaries = [NSMutableArray new];
+//        self.arrayOfPhotoDictionaries = [self.allPhotosDictionary objectForKey:@"data"];
+//
+//        self.arrayOfPhotos = [NSMutableArray new];
+//
+//        for (NSDictionary *temporaryDictionary in self.arrayOfPhotoDictionaries) {
+//            Photo *photo = [[Photo alloc]initWithContentsOfDictionary:temporaryDictionary];
 //        }
-//    }
-//
-//    NSLog(@"%lu",self.arrayOfPhotos.count);
-//    NSLog(@"%@", self.arrayOfPhotos.description);
-//}
+//    }] resume];

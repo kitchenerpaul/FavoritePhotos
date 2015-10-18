@@ -42,6 +42,15 @@
                                     <rect key="frame" x="114" y="537" width="193" height="21"/>
                                 </variation>
                             </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K2W-xt-Z6J">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="129" width="400" height="400"/>
+                                </variation>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="ho5-TK-GV7"/>
+                                </connections>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <variation key="default">
@@ -49,6 +58,7 @@
                                 <exclude reference="goC-0H-06E"/>
                                 <exclude reference="gbQ-gC-oZI"/>
                                 <exclude reference="77j-8U-st6"/>
+                                <exclude reference="K2W-xt-Z6J"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -56,10 +66,14 @@
                                 <include reference="goC-0H-06E"/>
                                 <include reference="gbQ-gC-oZI"/>
                                 <include reference="77j-8U-st6"/>
+                                <include reference="K2W-xt-Z6J"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="LLm-lc-yHP"/>
+                    <keyCommands>
+                        <keyCommand input=""/>
+                    </keyCommands>
                     <connections>
                         <outlet property="imageView" destination="goC-0H-06E" id="qES-1H-DDt"/>
                         <outlet property="searchTextField" destination="gbQ-gC-oZI" id="MPK-MO-oGQ"/>

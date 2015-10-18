@@ -26,12 +26,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+
     }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
 
     NSString *urlString = [NSString stringWithFormat:@"https://api.instagram.com/v1/tags/%@/media/recent?client_id=51fd729b24e9432fb32af5cbf7399474", self.searchTextField.text];
     NSURL *url = [NSURL URLWithString:urlString];
+
+//    NSData *imageData = [NSData dataWithData:UIImageJPEGRepresentation([UIImage imageWithData:[NSData dataWithContentsOfURL:url]], 1.0f)];
 
     [[[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
 
@@ -44,39 +47,23 @@
         NSLog(@"%@", [[[self.arrayOfPhotoDictionaries valueForKey:@"images"] valueForKey:@"low_resolution"] valueForKey:@"url"]);
 
         self.arrayOfPhotos = [NSMutableArray new];
+        self.arrayOfPhotos = [[[self.arrayOfPhotoDictionaries valueForKey:@"images"] valueForKey:@"low_resolution"] valueForKey:@"url"];
+
+        NSLog(@"%@", [self.arrayOfPhotos objectAtIndex:0]);
 
         dispatch_async(dispatch_get_main_queue(), ^{
 
-            self.imageView.image = [UIImage imageWithData:data];
+            NSLog(@"Reaches here");
+            self.imageView.image = [UIImage imageNamed:@"testphoto"];
+            self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[self.arrayOfPhotos objectAtIndex:0]]]];
+
 
         });
     }] resume];
 
-
-
-
     self.searchTextField.text = @"";
-
     return 0;
 }
 
+
 @end
-
-
-
-//    NSData *imageData = [NSData dataWithData:UIImageJPEGRepresentation ([UIImage imageWithData:[NSData dataWithContentsOfURL:url]], 1.0f)];
-//
-//    [[[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//
-//        self.allPhotosDictionary = [NSDictionary new];
-//        self.allPhotosDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-//
-//        self.arrayOfPhotoDictionaries = [NSMutableArray new];
-//        self.arrayOfPhotoDictionaries = [self.allPhotosDictionary objectForKey:@"data"];
-//
-//        self.arrayOfPhotos = [NSMutableArray new];
-//
-//        for (NSDictionary *temporaryDictionary in self.arrayOfPhotoDictionaries) {
-//            Photo *photo = [[Photo alloc]initWithContentsOfDictionary:temporaryDictionary];
-//        }
-//    }] resume];

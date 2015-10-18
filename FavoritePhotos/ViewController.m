@@ -9,15 +9,19 @@
 #import "ViewController.h"
 #import "Photo.h"
 
-@interface ViewController () <UITextFieldDelegate>
+@interface ViewController () <UITextFieldDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UILabel *testLabel;
 
 @property NSDictionary *allPhotosDictionary;
 @property NSMutableArray *arrayOfPhotoDictionaries;
 @property NSMutableArray *arrayOfPhotos;
+
+@property UISwipeGestureRecognizer *swipeLeft;
+@property UISwipeGestureRecognizer *swipeRight;
+
+@property int swipeCount;
 
 @end
 
@@ -26,6 +30,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipe:)];
+    self.swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:self.swipeLeft];
+
+    self.swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(didSwipe:)];
+    self.swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:self.swipeRight];
 
     }
 
@@ -33,8 +44,6 @@
 
     NSString *urlString = [NSString stringWithFormat:@"https://api.instagram.com/v1/tags/%@/media/recent?client_id=51fd729b24e9432fb32af5cbf7399474", self.searchTextField.text];
     NSURL *url = [NSURL URLWithString:urlString];
-
-//    NSData *imageData = [NSData dataWithData:UIImageJPEGRepresentation([UIImage imageWithData:[NSData dataWithContentsOfURL:url]], 1.0f)];
 
     [[[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
 
@@ -46,17 +55,12 @@
 
         NSLog(@"%@", [[[self.arrayOfPhotoDictionaries valueForKey:@"images"] valueForKey:@"low_resolution"] valueForKey:@"url"]);
 
-        self.arrayOfPhotos = [NSMutableArray new];
+        self.arrayOfPhotos = [[NSMutableArray alloc] initWithCapacity:10];
         self.arrayOfPhotos = [[[self.arrayOfPhotoDictionaries valueForKey:@"images"] valueForKey:@"low_resolution"] valueForKey:@"url"];
-
-        NSLog(@"%@", [self.arrayOfPhotos objectAtIndex:0]);
 
         dispatch_async(dispatch_get_main_queue(), ^{
 
-            NSLog(@"Reaches here");
-            self.imageView.image = [UIImage imageNamed:@"testphoto"];
-            self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[self.arrayOfPhotos objectAtIndex:0]]]];
-
+            [self iterateThroughPhotos];
 
         });
     }] resume];
@@ -65,5 +69,52 @@
     return 0;
 }
 
+- (void)didSwipe:(UISwipeGestureRecognizer*)swipe{
+    int i = self.swipeCount;
+
+    if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
+
+        if (self.swipeCount == 0) {
+            self.swipeCount = 1;
+        }
+
+        NSLog(@"Swipe Left");
+        self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[self.arrayOfPhotos objectAtIndex:i]]]];
+        self.swipeCount--;
+        NSLog(@"%i", i);
+    }
+
+    if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
+
+        if (self.swipeCount == 10) {
+            self.swipeCount = -1;
+        }
+
+        NSLog(@"Swipe Right");
+        self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[self.arrayOfPhotos objectAtIndex:i]]]];
+        self.swipeCount++;
+        NSLog(@"%i", i);
+        }
+
+}
+
+-(void)iterateThroughPhotos {
+
+    NSLog(@"Reaches here");
+    self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[self.arrayOfPhotos objectAtIndex:0]]]];
+
+}
 
 @end
+//
+//if (self.swipeRight) {
+//    NSLog(@"reaches swiperight method");
+//
+//    for (int i=0; i<[self.arrayOfPhotos count]; i++) {
+//        NSLog(@"%d: %@", i, self.arrayOfPhotos[i]);
+//        self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[self.arrayOfPhotos objectAtIndex:0]]]];
+//    }
+//    //                self.photoNumber = 0;
+//    //                [self.arrayOfPhotos objectAtIndex:0] + 1;
+//    //                self.photoNumber--;
+//}

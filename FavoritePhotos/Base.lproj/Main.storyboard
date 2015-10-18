@@ -2,9 +2,10 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="c92-Md-OQW">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Photos-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
@@ -16,71 +17,91 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="goC-0H-06E">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="129" width="400" height="400"/>
-                                </variation>
-                            </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search Instagram Photos" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gbQ-gC-oZI">
                                 <rect key="frame" x="-25" y="-30" width="97" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="360" id="E8o-HD-Qw5"/>
+                                    <constraint firstAttribute="height" constant="30" id="PIx-sQ-OeL"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="20" y="82" width="360" height="30"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="E8o-HD-Qw5"/>
+                                        <exclude reference="PIx-sQ-OeL"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="E8o-HD-Qw5"/>
+                                        <include reference="PIx-sQ-OeL"/>
+                                    </mask>
                                 </variation>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="n22-OO-GEv"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77j-8U-st6">
-                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="114" y="537" width="193" height="21"/>
-                                </variation>
-                            </label>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K2W-xt-Z6J">
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="goC-0H-06E">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="129" width="400" height="400"/>
-                                </variation>
-                                <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="ho5-TK-GV7"/>
-                                </connections>
-                            </scrollView>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="goC-0H-06E" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="7zs-9S-JBY"/>
+                            <constraint firstItem="goC-0H-06E" firstAttribute="top" secondItem="gbQ-gC-oZI" secondAttribute="bottom" constant="18" id="Hl8-1B-nI9"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="goC-0H-06E" secondAttribute="bottom" constant="70" id="UJo-PF-3Hm"/>
+                            <constraint firstItem="gbQ-gC-oZI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cj0-Ix-3hS"/>
+                            <constraint firstItem="gbQ-gC-oZI" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="18" id="iCB-jb-MBA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="goC-0H-06E" secondAttribute="trailing" constant="-20" id="jF4-6A-kfR"/>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="goC-0H-06E"/>
                                 <exclude reference="gbQ-gC-oZI"/>
-                                <exclude reference="77j-8U-st6"/>
-                                <exclude reference="K2W-xt-Z6J"/>
+                                <exclude reference="goC-0H-06E"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="cj0-Ix-3hS"/>
+                                <exclude reference="iCB-jb-MBA"/>
+                                <exclude reference="7zs-9S-JBY"/>
+                                <exclude reference="Hl8-1B-nI9"/>
+                                <exclude reference="jF4-6A-kfR"/>
+                                <exclude reference="UJo-PF-3Hm"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
-                                <include reference="goC-0H-06E"/>
                                 <include reference="gbQ-gC-oZI"/>
-                                <include reference="77j-8U-st6"/>
-                                <include reference="K2W-xt-Z6J"/>
+                                <include reference="goC-0H-06E"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="cj0-Ix-3hS"/>
+                                <include reference="iCB-jb-MBA"/>
+                                <include reference="7zs-9S-JBY"/>
+                                <include reference="Hl8-1B-nI9"/>
+                                <include reference="jF4-6A-kfR"/>
+                                <include reference="UJo-PF-3Hm"/>
                             </mask>
                         </variation>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="1N1-yH-gW6" appends="YES" id="oIH-80-VuC"/>
+                        </connections>
                     </view>
-                    <navigationItem key="navigationItem" id="LLm-lc-yHP"/>
+                    <navigationItem key="navigationItem" title="Photos" id="LLm-lc-yHP"/>
                     <keyCommands>
                         <keyCommand input=""/>
                     </keyCommands>
                     <connections>
                         <outlet property="imageView" destination="goC-0H-06E" id="qES-1H-DDt"/>
                         <outlet property="searchTextField" destination="gbQ-gC-oZI" id="MPK-MO-oGQ"/>
-                        <outlet property="testLabel" destination="77j-8U-st6" id="huU-Ln-jMQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="1N1-yH-gW6">
+                    <connections>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="vCG-hh-lic"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1222.5" y="387"/>
         </scene>

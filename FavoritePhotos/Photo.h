@@ -11,7 +11,7 @@
 
 @interface Photo : NSObject
 
-//@property NSString *tag;
+@property BOOL *isFavorite;
 @property UIImage *image;
 
 -(instancetype)initWithContentsOfDictionary:(NSDictionary *)photoDictionary;

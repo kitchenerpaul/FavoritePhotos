@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "Photo.h"
+#import "FavoritesViewController.h"
 
 @interface ViewController () <UITextFieldDelegate, UIGestureRecognizerDelegate>
 
@@ -18,6 +19,7 @@
 @property NSDictionary *allPhotosDictionary;
 @property NSMutableArray *arrayOfPhotoDictionaries;
 @property NSMutableArray *arrayOfPhotos;
+@property NSMutableArray *arrayOfFavoritePhotos;
 
 @property UISwipeGestureRecognizer *swipeLeft;
 @property UISwipeGestureRecognizer *swipeRight;
@@ -30,7 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.searchTextField.delegate = self;
     self.starImage.hidden = YES;
 
     self.swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeL:)];
@@ -42,6 +44,12 @@
     [self.view addGestureRecognizer:self.swipeRight];
 
 }
+
+//-(void)textFieldDidBeginEditing:(UITextField *)textField {
+//    if (textField.text.length > 0) {
+//        self.starImage.hidden = YES;
+//    }
+//}
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
 
@@ -56,9 +64,7 @@
         self.arrayOfPhotoDictionaries = [NSMutableArray new];
         self.arrayOfPhotoDictionaries = [self.allPhotosDictionary objectForKey:@"data"];
 
-        NSLog(@"%@", [[[self.arrayOfPhotoDictionaries valueForKey:@"images"] valueForKey:@"low_resolution"] valueForKey:@"url"]);
-
-        self.arrayOfPhotos = [[NSMutableArray alloc] initWithCapacity:10];
+        self.arrayOfPhotos = [[NSMutableArray alloc] init];
         self.arrayOfPhotos = [[[self.arrayOfPhotoDictionaries valueForKey:@"images"] valueForKey:@"low_resolution"] valueForKey:@"url"];
 
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -75,6 +81,7 @@
 
 - (void)didSwipeL:(UISwipeGestureRecognizer*)swipe{
     int i = self.swipeCount;
+    self.starImage.highlighted = NO;
 
     if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
 
@@ -83,12 +90,12 @@
         }
         self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[self.arrayOfPhotos objectAtIndex:i]]]];
         self.swipeCount--;
-        NSLog(@"%i", i);
     }
 }
 
 - (void)didSwipeR:(UISwipeGestureRecognizer*)swipe{
     int i = self.swipeCount;
+    self.starImage.highlighted = NO;
 
     if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
 
@@ -97,13 +104,11 @@
         }
         self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[self.arrayOfPhotos objectAtIndex:i]]]];
         self.swipeCount++;
-        NSLog(@"%i", i);
     }
 }
 
 -(void)iterateThroughPhotos {
 
-    NSLog(@"Reaches here");
     self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[self.arrayOfPhotos objectAtIndex:0]]]];
 }
 
@@ -114,6 +119,12 @@
     } else if (self.starImage.highlighted == NO) {
         self.starImage.highlighted = YES;
     }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    FavoritesViewController *favViewController = segue.destinationViewController;
+    favViewController.ArrayOfFavoritePhotos = self.arrayOfFavoritePhotos;
+
 }
 
 

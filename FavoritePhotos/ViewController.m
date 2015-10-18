@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIImageView *starImage;
 
 @property NSDictionary *allPhotosDictionary;
 @property NSMutableArray *arrayOfPhotoDictionaries;
@@ -30,15 +31,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipe:)];
+    self.starImage.hidden = YES;
+
+    self.swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeL:)];
     self.swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     [self.view addGestureRecognizer:self.swipeLeft];
 
-    self.swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(didSwipe:)];
+    self.swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(didSwipeR:)];
     self.swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:self.swipeRight];
 
-    }
+}
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
 
@@ -65,11 +68,12 @@
         });
     }] resume];
 
+    self.starImage.hidden = NO;
     self.searchTextField.text = @"";
     return 0;
 }
 
-- (void)didSwipe:(UISwipeGestureRecognizer*)swipe{
+- (void)didSwipeL:(UISwipeGestureRecognizer*)swipe{
     int i = self.swipeCount;
 
     if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
@@ -77,44 +81,40 @@
         if (self.swipeCount == 0) {
             self.swipeCount = 1;
         }
-
-        NSLog(@"Swipe Left");
         self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[self.arrayOfPhotos objectAtIndex:i]]]];
         self.swipeCount--;
         NSLog(@"%i", i);
     }
+}
+
+- (void)didSwipeR:(UISwipeGestureRecognizer*)swipe{
+    int i = self.swipeCount;
 
     if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
 
         if (self.swipeCount == 10) {
-            self.swipeCount = -1;
+            self.swipeCount = 9;
         }
-
-        NSLog(@"Swipe Right");
         self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[self.arrayOfPhotos objectAtIndex:i]]]];
         self.swipeCount++;
         NSLog(@"%i", i);
-        }
-
+    }
 }
 
 -(void)iterateThroughPhotos {
 
     NSLog(@"Reaches here");
     self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[self.arrayOfPhotos objectAtIndex:0]]]];
-
 }
 
+- (IBAction)favoritesButtonPressed:(id)sender {
+
+    if (self.starImage.highlighted == YES) {
+        self.starImage.highlighted = NO;
+    } else if (self.starImage.highlighted == NO) {
+        self.starImage.highlighted = YES;
+    }
+}
+
+
 @end
-//
-//if (self.swipeRight) {
-//    NSLog(@"reaches swiperight method");
-//
-//    for (int i=0; i<[self.arrayOfPhotos count]; i++) {
-//        NSLog(@"%d: %@", i, self.arrayOfPhotos[i]);
-//        self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[self.arrayOfPhotos objectAtIndex:0]]]];
-//    }
-//    //                self.photoNumber = 0;
-//    //                [self.arrayOfPhotos objectAtIndex:0] + 1;
-//    //                self.photoNumber--;
-//}

@@ -17,6 +17,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="goC-0H-06E">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                            </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search Instagram Photos" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gbQ-gC-oZI">
                                 <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                 <constraints>
@@ -41,24 +44,68 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="n22-OO-GEv"/>
                                 </connections>
                             </textField>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="goC-0H-06E">
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="silverstar" highlightedImage="yellowstar" translatesAutoresizingMaskIntoConstraints="NO" id="RTq-0i-WT7">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="OLm-QW-UVK"/>
+                                    <constraint firstAttribute="height" constant="40" id="nYW-f6-wE7"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="OLm-QW-UVK"/>
+                                        <exclude reference="nYW-f6-wE7"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="OLm-QW-UVK"/>
+                                        <include reference="nYW-f6-wE7"/>
+                                    </mask>
+                                </variation>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jtu-P4-ifK">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="qfW-jP-ZvR"/>
+                                    <constraint firstAttribute="height" constant="40" id="riT-Qi-rTk"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="qfW-jP-ZvR"/>
+                                        <exclude reference="riT-Qi-rTk"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="qfW-jP-ZvR"/>
+                                        <include reference="riT-Qi-rTk"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="favoritesButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ffW-d5-fGJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="goC-0H-06E" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="7zs-9S-JBY"/>
                             <constraint firstItem="goC-0H-06E" firstAttribute="top" secondItem="gbQ-gC-oZI" secondAttribute="bottom" constant="18" id="Hl8-1B-nI9"/>
+                            <constraint firstItem="RTq-0i-WT7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="LxO-V5-vbp"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="goC-0H-06E" secondAttribute="bottom" constant="70" id="UJo-PF-3Hm"/>
                             <constraint firstItem="gbQ-gC-oZI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cj0-Ix-3hS"/>
                             <constraint firstItem="gbQ-gC-oZI" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="18" id="iCB-jb-MBA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="goC-0H-06E" secondAttribute="trailing" constant="-20" id="jF4-6A-kfR"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Jtu-P4-ifK" secondAttribute="bottom" constant="20" id="pq7-19-Wn5"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="RTq-0i-WT7" secondAttribute="bottom" constant="20" id="rPJ-GT-1se"/>
+                            <constraint firstItem="Jtu-P4-ifK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="zXL-EZ-VDb"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="gbQ-gC-oZI"/>
                                 <exclude reference="goC-0H-06E"/>
+                                <exclude reference="gbQ-gC-oZI"/>
+                                <exclude reference="RTq-0i-WT7"/>
+                                <exclude reference="Jtu-P4-ifK"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="cj0-Ix-3hS"/>
@@ -66,13 +113,19 @@
                                 <exclude reference="7zs-9S-JBY"/>
                                 <exclude reference="Hl8-1B-nI9"/>
                                 <exclude reference="jF4-6A-kfR"/>
+                                <exclude reference="zXL-EZ-VDb"/>
+                                <exclude reference="LxO-V5-vbp"/>
                                 <exclude reference="UJo-PF-3Hm"/>
+                                <exclude reference="pq7-19-Wn5"/>
+                                <exclude reference="rPJ-GT-1se"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
-                                <include reference="gbQ-gC-oZI"/>
                                 <include reference="goC-0H-06E"/>
+                                <include reference="gbQ-gC-oZI"/>
+                                <include reference="RTq-0i-WT7"/>
+                                <include reference="Jtu-P4-ifK"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="cj0-Ix-3hS"/>
@@ -80,7 +133,11 @@
                                 <include reference="7zs-9S-JBY"/>
                                 <include reference="Hl8-1B-nI9"/>
                                 <include reference="jF4-6A-kfR"/>
+                                <include reference="zXL-EZ-VDb"/>
+                                <include reference="LxO-V5-vbp"/>
                                 <include reference="UJo-PF-3Hm"/>
+                                <include reference="pq7-19-Wn5"/>
+                                <include reference="rPJ-GT-1se"/>
                             </mask>
                         </variation>
                         <connections>
@@ -94,6 +151,7 @@
                     <connections>
                         <outlet property="imageView" destination="goC-0H-06E" id="qES-1H-DDt"/>
                         <outlet property="searchTextField" destination="gbQ-gC-oZI" id="MPK-MO-oGQ"/>
+                        <outlet property="starImage" destination="RTq-0i-WT7" id="XKG-fg-fhF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -124,4 +182,8 @@
             <point key="canvasLocation" x="529.5" y="387"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="silverstar" width="2000" height="1915"/>
+        <image name="yellowstar" width="500" height="472"/>
+    </resources>
 </document>
